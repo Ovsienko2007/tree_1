@@ -34,6 +34,7 @@ void add_elem(tree_t *tree, tree_elem_t new_elem_value) {
 
 void destroy_branch(tree_t *tree, tree_elem_t elem_value) {
     if (!tree) return;
+    if (!*tree) return;
 
     static bool elem_in_tree = true;
 
@@ -52,9 +53,9 @@ void destroy_branch(tree_t *tree, tree_elem_t elem_value) {
     }
 }
 
-
 void destroy_tree(tree_t *tree) {
     if (!tree) return;
+    if (!*tree) return;
 
     if ((*tree)->left) {
         destroy_tree(&((*tree)->left));
@@ -62,6 +63,21 @@ void destroy_tree(tree_t *tree) {
     if ((*tree)->right) {
         destroy_tree(&((*tree)->right));
     }
+
     free(*tree);
     *tree = NULL;
+}
+
+void print_tree(tree_t tree) {
+    if (!tree) return;
+
+    if (tree->left) {
+        print_tree(tree->left);
+    }
+
+    printf("%d ", tree->elem);
+
+    if (tree->right) {
+        print_tree(tree->right);
+    }
 }

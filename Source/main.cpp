@@ -13,11 +13,15 @@ int main(){
     add_elem(&tree, 11);
     add_elem(&tree, 9);
 
+    print_tree(tree);
+    printf("\n");
     DUMP(tree);
-    
 
     destroy_branch(&tree, 10);
     DUMP(tree);
+
+    destroy_tree(&tree);
+
     end_dump();
     return 0;
 }

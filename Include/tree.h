@@ -23,8 +23,10 @@ struct dump_position {
     int line;
 };
 
+void print_tree(tree_t tree);
 
 void add_elem(tree_t *tree, tree_elem_t new_elem_value);
+
 void destroy_branch(tree_t *tree, tree_elem_t elem_value);
 void destroy_tree(tree_t *tree);
 
