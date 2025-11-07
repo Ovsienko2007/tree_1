@@ -31,6 +31,4 @@ void destroy_branch(tree_t *tree, tree_elem_t elem_value);
 void destroy_tree(tree_t *tree);
 
 void show_dump(tree_t tree, dump_position position);
-void start_dump();
-void end_dump();
 #endif

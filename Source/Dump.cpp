@@ -16,6 +16,10 @@ static void creat_html(int num_call, dump_position position);
 static void creat_dot(int num_call, tree_t tree);
 static void print_dump_elem(FILE *strem_out, node_t *elem);
 
+static void start_dump();
+static void end_dump();
+
+
 void show_dump(tree_t tree, dump_position position){
     static int num_call = 1;
 
@@ -80,7 +84,7 @@ static void print_dump_elem(FILE *strem_out, node_t *elem){
     }
 }
 
-void start_dump(){
+static void start_dump(){
     html_stream = fopen(dump_file_position,"w");
     fprintf(html_stream,  "<html lang=\"en\">\n"
                         "<head>\n"
@@ -90,7 +94,7 @@ void start_dump(){
                         "<body>\n");
 }   
 
-void end_dump(){
+static void end_dump(){
     if (!html_stream) return;
 
     fprintf(html_stream,  "</body>\n"
