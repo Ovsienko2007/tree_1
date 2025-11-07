@@ -6,6 +6,8 @@
 #define COL_VALUE_BACKGROUND   "#7f8cd6be"
 #define COL_CURRENT_BACKGROUND "#d3cd77ff"
 
+static FILE *html_stream = nullptr;
+
 static const char *dump_file_position  = "DUMP/dump.html";
 static const int kMaxFileNameLen       = 24;
 static const int kImageSize            = 500;
@@ -16,20 +18,24 @@ static void print_dump_elem(FILE *strem_out, node_t *elem);
 
 void show_dump(tree_t tree, dump_position position){
     static int num_call = 1;
+
+    if (num_call == 1){
+        start_dump();
+        atexit(end_dump);
+    }
+
     creat_dot(num_call, tree);
     creat_html(num_call, position);
     num_call++;
 }
 
 static void creat_html(int num_call, dump_position position){
-    FILE *file_html = fopen(dump_file_position,"a");
+    if (!html_stream) return;
 
-    fprintf(file_html, "<h3 align=\"center\"> StackDump called from %s:%d from func %s. The %d call</h3>\n",
+    fprintf(html_stream, "<h3 align=\"center\"> StackDump called from %s:%d from func %s. The %d call</h3>\n",
          position.file, position.line, position.func, num_call);
 
-    fprintf(file_html,  "<img src=\"./%d.png\" width=\"%d\" alt=\"DUMP %d\" />\n", num_call, kImageSize, num_call);
-
-    fclose(file_html);
+    fprintf(html_stream,  "<img src=\"./%d.png\" width=\"%d\" alt=\"DUMP %d\" />\n", num_call, kImageSize, num_call);
 }
 
 static void creat_dot(int num_call, tree_t tree){
@@ -75,20 +81,20 @@ static void print_dump_elem(FILE *strem_out, node_t *elem){
 }
 
 void start_dump(){
-    FILE *file_html = fopen(dump_file_position,"w");
-    fprintf(file_html,  "<html lang=\"en\">\n"
+    html_stream = fopen(dump_file_position,"w");
+    fprintf(html_stream,  "<html lang=\"en\">\n"
                         "<head>\n"
                         "  <meta charset=\"UTF-8\">\n"
                         "  <title>Dump HTML</title>\n"
                         "</head>\n"
                         "<body>\n");
-    fclose(file_html);
 }   
 
 void end_dump(){
-    FILE *file_html = fopen(dump_file_position,"a");
-    fprintf(file_html,  "</body>\n"
+    if (!html_stream) return;
+
+    fprintf(html_stream,  "</body>\n"
                         "</html>\n");
                         
-    fclose(file_html);
+    fclose(html_stream);
 }

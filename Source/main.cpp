@@ -2,9 +2,8 @@
 #include "tree.h"
 
 int main(){
-    start_dump();
-
     tree_t tree = NULL;
+
     add_elem(&tree, 5);
     add_elem(&tree, 5);
     add_elem(&tree, 3);
@@ -15,13 +14,14 @@ int main(){
 
     print_tree(tree);
     printf("\n");
+
     DUMP(tree);
 
     destroy_branch(&tree, 10);
+
     DUMP(tree);
 
     destroy_tree(&tree);
 
-    end_dump();
     return 0;
 }
