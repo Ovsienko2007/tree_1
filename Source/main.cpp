@@ -21,7 +21,7 @@ int main(){
 
     DUMP(tree);
 
-    destroy_tree(&tree);
+    destroy_subtree(&tree);
 
     return 0;
 }

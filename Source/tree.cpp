@@ -48,20 +48,20 @@ void destroy_branch(tree_t *tree, tree_elem_t elem_value) {
         destroy_branch(&((*tree)->right), elem_value);
     }
     else {
-        destroy_tree(tree);
+        destroy_subtree(tree);
         elem_in_tree = false;
     }
 }
 
-void destroy_tree(tree_t *tree) {
+void destroy_subtree(tree_t *tree) {
     if (!tree) return;
     if (!*tree) return;
 
     if ((*tree)->left) {
-        destroy_tree(&((*tree)->left));
+        destroy_subtree(&((*tree)->left));
     }
     if ((*tree)->right) {
-        destroy_tree(&((*tree)->right));
+        destroy_subtree(&((*tree)->right));
     }
 
     free(*tree);

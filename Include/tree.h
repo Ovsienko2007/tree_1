@@ -28,7 +28,7 @@ void print_tree(tree_t tree);
 void add_elem(tree_t *tree, tree_elem_t new_elem_value);
 
 void destroy_branch(tree_t *tree, tree_elem_t elem_value);
-void destroy_tree(tree_t *tree);
+void destroy_subtree(tree_t *tree);
 
 void show_dump(tree_t tree, dump_position position);
 #endif
